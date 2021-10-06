@@ -39,3 +39,12 @@ fn save_closure_in_struct() {
 //     };
 //     test_closure
 // }
+
+
+// what happen copy or move closure
+
+
+// todo: 1. move capture, what happen when call value twice(write test)
+fn move_capture() {
+
+}

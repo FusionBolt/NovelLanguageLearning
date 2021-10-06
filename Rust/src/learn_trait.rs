@@ -48,11 +48,69 @@ fn pass_by_copy<T>(c: T) where T: Copy{
     println!("pass by copy")
 }
 
+#[derive(Clone)]
+struct GenericAndTrait<T: Clone> {
+    v: T
+}
+
+impl<T: Clone> Drop for GenericAndTrait<T> {
+    fn drop(&mut self) {
+        todo!()
+    }
+}
+
 pub fn learn_trait() {
     let copy_s = CopyStructure { a: 0, b: false };
     pass_by_copy(copy_s);
-    let clone_s = DeriveCloneStructure{ a: "str".to_string(), b: Default::default() };
+    let _ = DeriveCloneStructure{ a: "str".to_string(), b: Default::default() };
+    let _ = DropStructure {};
     // pass clone will compile error
     // the trait `Copy` is not implemented for `DeriveCloneStructure`
     // pass_by_copy(clone_s);
+}
+
+struct ManualDefaultTrait {
+    a: usize,
+    b: bool
+}
+
+impl Default for ManualDefaultTrait {
+    fn default() -> Self {
+        ManualDefaultTrait {
+            a: 0,
+            b: false
+        }
+    }
+}
+
+#[derive(Default)]
+struct DeriveDefaultStructure {
+    a: usize,
+    b: bool
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::learn_trait::ManualDefaultTrait;
+    use crate::learn_trait::DeriveDefaultStructure;
+    use std::default::default;
+
+    #[test]
+    fn test_default_trait() {
+        let v1 = ManualDefaultTrait::default();
+        let v2 = DeriveDefaultStructure::default();
+        assert_eq!(v1.a, v2.a);
+        assert_eq!(v1.b, v2.b);
+        let v3 = ManualDefaultTrait {
+            a: 0,
+            ..ManualDefaultTrait::default()
+        };
+        // feature:default_free_fn
+        let v3 = ManualDefaultTrait {
+            a: 0,
+            ..default()
+        };
+        assert_eq!(v1.a, v3.a);
+        assert_eq!(v1.b, v3.b);
+    }
 }
