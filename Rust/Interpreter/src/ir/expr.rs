@@ -3,7 +3,7 @@ use std::collections::HashMap;
 pub type LSymbol = String;
 
 pub type LParameter = Vec<String>;
-pub type LArgs = HashMap<String, LValue>;
+pub type LArgs = Vec<String>;
 
 #[derive(Clone, Debug)]
 pub struct LFunction {

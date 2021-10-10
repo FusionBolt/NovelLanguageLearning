@@ -1,3 +1,6 @@
+use crate::pattern_match::Expr::Int;
+
+#[derive(PartialEq)]
 enum Expr{
     Int(i64),
     Bool(bool)
@@ -15,6 +18,24 @@ fn match_box(expr: Box<Expr>) {
         }
         Expr::Bool(b) => {
             println!("Bool Expr Value:{:?}", b);
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::pattern_match::Expr;
+
+    fn get_enum_false() -> Expr {
+        Expr::Bool(false)
+    }
+
+    #[test]
+    fn test_match_bool() {
+        assert!(matches!(get_enum_false(), Expr::Bool(false)));
+        // not recommend
+        if let Expr::Bool(true) = get_enum_false() {
+            assert!(false)
         }
     }
 }

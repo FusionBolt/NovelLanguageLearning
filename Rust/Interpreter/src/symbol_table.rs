@@ -18,15 +18,17 @@ impl<V: Clone> SymbolTable<V> {
         self.env.insert(sym, value)
     }
 
-    pub fn new_env_run<F: FnMut()-> T, T>(&self, fun: F) -> T {
-        // todo:replace this with raii(drop)
-        self.enter_function();
-        let ret = fun();
-        self.exit_function();
-        ret
+    // pub fn new_env_run<F: FnMut()-> T, T>(&mut self, fun: F) -> T {
+    //     // todo:replace this with raii(drop)
+    //     self.enter_function();
+    //     let ret = fun();
+    //     self.exit_function();
+    //     ret
+    // }
+
+    pub fn enter_function(&mut self, new_env: HashMap<String, V>) {
+
     }
 
-    fn enter_function(&self) {}
-
-    fn exit_function(&self) {}
+    pub fn exit_function(&mut self) {}
 }

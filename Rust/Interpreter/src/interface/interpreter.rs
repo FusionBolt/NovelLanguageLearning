@@ -1,7 +1,9 @@
-use crate::ir::expr::{LValue, Expr, LParameter, LFunction, LArgs};
+use crate::ir::expr::{LValue, Expr, LParameter, LFunction, LArgs, LSymbol};
 use crate::symbol_table::SymbolTable;
 use std::fmt;
 use crate::ir::expr::LValue::Nil;
+use std::collections::HashMap;
+use std::rc::Rc;
 
 pub struct Interpreter {
     evaluator: Evaluator,
@@ -18,7 +20,7 @@ impl Interpreter {
     }
 }
 
-type EvalEnv = SymbolTable<LValue>;
+type EvalEnv = SymbolTable<Rc<LValue>>;
 
 pub struct Evaluator {
     env: EvalEnv,
@@ -29,63 +31,70 @@ impl Evaluator {
         Evaluator { env: SymbolTable::new() }
     }
 
-    pub fn eval(&mut self, expr: &Expr) -> Result<LValue, String> {
+    pub fn eval(&mut self, expr: &Expr) -> Result<Rc<LValue>, String> {
         match expr {
             Expr::Define(symbol, value) => {
-                if let _ = self.env.look_up(symbol) {
-                    Err(format!("symbol:{} already defined", symbol))
-                } else {
-                    Ok(self.env.insert(symbol.clone(), value.clone()).unwrap())
+                if let Some(_) = self.env.insert(symbol.clone(), Rc::from(value.clone())) {
+                    match self.env.look_up(&symbol) {
+                        Some(v) => {
+                            Ok((*v).clone())
+                        }
+                        None => {
+                            Err(format!("symbol:{} already defined", symbol))
+                        }
+                    }
+                }
+                else {
+                    Err("err".to_string())
                 }
             }
             Expr::If(cond, if_expr, else_expr) => {
-                if let _ = self.eval_condition(cond) {
-                    self.eval(if_expr)
-                } else {
-                    self.eval(else_expr)
+                match **cond {
+                    Expr::Value(LValue::Bool(b)) => {
+                        if b {
+                            self.eval(if_expr)
+                        } else {
+                            self.eval(else_expr)
+                        }
+                    }
+                    _ => {
+                        Err("if condition is not a valid boolean".to_string())
+                    }
                 }
             }
-            Expr::Call(symbol, param) => {
-                if let Some(callable) = self.env.look_up(symbol) {
-                    self.eval_fun(callable, param)
-                } else {
-                    return Err(format!("Symbol{:?} Not Found", symbol));
-                }
+            Expr::Call(symbol, args) => {
+                self.eval_fun(&symbol, &args)
             }
             Expr::Value(v) => {
                 println!("{:?}", v);
-                Ok(v.clone())
+                Ok(Rc::from(v.clone()))
             }
         }
     }
 
-    fn eval_fun(&mut self, fun: &LValue, param: &LArgs) -> Result<LValue, String> {
-        match fun {
-            LValue::Fun(LFunction { name, param, body }) => {
-                self.env.new_env_run(|| {
-                    self.eval(body)
-                })
-            }
-            _ => {
-                Err("invalid function".to_string())
+    fn eval_fun(&mut self, symbol: &LSymbol, args: &LArgs) -> Result<Rc<LValue>, String> {
+        if let Some(fun) = self.env.look_up(symbol) {
+            match &**fun {
+                LValue::Fun(LFunction { name, param, body }) => {
+                    // param value -> env[args]
+                    let args_value = param.into_iter().map(|name|{
+                        self.env.look_up(&name)
+                    });
+                    self.env.enter_function(HashMap::default());
+                    let ret = self.eval(&*body);
+                    self.env.exit_function();
+                    ret
+                }
+                _ => {
+                    Err("invalid function".to_string())
+                }
             }
         }
-    }
-
-    // todo:limit LValue is Bool
-    fn eval_condition(&self, expr: &Expr) -> Result<bool, String> {
-        match expr {
-            Expr::Value(LValue::Bool(b)) => {
-                Ok(b.clone())
-            }
-            _ => {
-                Err("if condition is not a valid boolean".to_string())
-            }
+        else {
+            Err("symbol not found".to_string())
         }
     }
 }
 
 #[cfg(test)]
-mod tests {
-    
-}
+mod tests {}

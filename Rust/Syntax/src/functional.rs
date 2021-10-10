@@ -63,6 +63,8 @@ impl<'a> Scope<'a> {
     }
 }
 
+// ref: https://stackoverflow.com/questions/41081240/idiomatic-callbacks-in-rust
+
 // todo:split a maker and a RAII
 fn learn_functional() {
     pass_a_closure(|| println!("pass closure"));
