@@ -1,3 +1,5 @@
+#![feature(unboxed_closures)]
+
 mod interface;
 mod ir;
 mod symbol_table;
