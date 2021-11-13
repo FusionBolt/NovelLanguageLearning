@@ -18,6 +18,9 @@ mod unstable_feature;
 mod recursive_type;
 mod smart_ptr;
 mod lifetime;
+mod compare_string;
+mod learn_macro;
+mod to_iter;
 
 fn main() {
     learn_trait();
