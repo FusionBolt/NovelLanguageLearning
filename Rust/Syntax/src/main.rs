@@ -21,6 +21,7 @@ mod lifetime;
 mod compare_string;
 mod learn_macro;
 mod to_iter;
+mod error_handle;
 
 fn main() {
     learn_trait();
