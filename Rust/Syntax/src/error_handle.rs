@@ -28,7 +28,6 @@ mod tests {
         // if none then none, else process, likely functor
         // return a option<T>
         option_i.map(|x| x * 2);
-
         // flatmap
         // if none then none, else option<option<T>> translate to option<T> in f
         // reduce multi match None, maybe can be called "fold once option"
@@ -76,6 +75,10 @@ mod tests {
 
     #[test]
     fn result() {
+        result to option
+            .ok
+
+
         // let a = Ok(1);
 
         // a.err();
