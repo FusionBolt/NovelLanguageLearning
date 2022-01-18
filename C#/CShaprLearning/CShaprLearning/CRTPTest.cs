@@ -65,3 +65,41 @@ public class CreateGenericInstance
         return (T) Activator.CreateInstance(typeof(T), id);
     }
 }
+
+
+public class Context
+{
+}
+
+public class Item
+{
+}
+
+public interface IEvaluator
+{
+    public int Visit(Context ctx, Item target);
+}
+    
+// call subclass method
+public interface IEvaluator<T> : IEvaluator
+    where T: Item
+{
+    public int Visit(Context ctx, T target);
+
+    int IEvaluator.Visit(Context ctx, Item target)
+    {
+        return Visit(ctx, (T)target);
+    }
+}
+
+public class Var : Item
+{
+    
+}
+public class IntEvaluator : IEvaluator<Var>
+{
+    public int Visit(Context ctx, Var target)
+    {
+        throw new NotImplementedException();
+    }
+}
