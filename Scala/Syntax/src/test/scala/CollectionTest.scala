@@ -1,7 +1,7 @@
 import org.scalatest.BeforeAndAfter
 import org.scalatest.funspec.AnyFunSpec
 
-class Collection extends BaseSpec {
+class CollectionTest extends BaseSpec {
 
   describe("list") {
     it("add") {
