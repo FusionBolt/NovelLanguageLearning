@@ -1,4 +1,5 @@
-import scala.reflect.runtime.{universe => ru}
+import scala.quoted.{Expr, Quotes, Type}
+import scala.reflect.runtime.universe as ru
 
 class Reflection extends BaseSpec {
   describe("get loader") {
