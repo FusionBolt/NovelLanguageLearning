@@ -1,0 +1,28 @@
+-- Haskell Playground 1.0
+runWriter $ test 6
+
+getSome 3 6 >>= getSome 1 >>= getSome 2
+getSome 3 6 >>= getSome 5
+getSome 3 6 >>= putSome 5 >>= getSome 6
+
+
+half 5
+half 4
+
+half 20 >>= half
+half 20 >>= half >>= half
+
+(+5) <$> half 20
+
+multi 5 <*> half 20
+
+m = fmap (*) [1,2,3]
+fmap (\x->x 2) m
+
+
+("dogmeat", Sum 5) `applyLog` addDrink `applyLog` addDrink  
+("beer",Sum {getSum = 65})
+
+-- writer
+trackAdd 2 5
+runWriter (gcd' 8 3)

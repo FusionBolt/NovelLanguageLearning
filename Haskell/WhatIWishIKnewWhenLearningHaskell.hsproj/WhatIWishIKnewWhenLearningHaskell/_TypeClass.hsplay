@@ -1,0 +1,24 @@
+-- Haskell Playground 1.0
+getVehicleCalls Car
+getVehicleCalls Bus
+
+:t getVehicleCalls
+
+:t maybe_getV
+
+id0 = select_id 0
+id5 = select_id 5
+show_id_data id0
+show_id_data id5
+
+       
+read "Saturday" :: Day
+succ Monday
+pred Saturday
+[Thursday .. Sunday]
+[minBound .. maxBound] :: [Day]
+
+:k Pair
+
+getInfo $ LazyT undefined
+

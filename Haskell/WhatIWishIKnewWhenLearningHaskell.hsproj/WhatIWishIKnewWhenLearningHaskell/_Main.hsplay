@@ -1,0 +1,17 @@
+-- Haskell Playground 1.0
+
+solution 20
+sum $ map pro [1..20-1]
+
+ex1
+ex2
+
+:t example
+
+st_v = St "str" 2
+
+get st_v
+
+:t computation
+
+show calc

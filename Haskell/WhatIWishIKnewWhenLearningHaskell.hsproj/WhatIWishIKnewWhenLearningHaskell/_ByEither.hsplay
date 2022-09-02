@@ -1,0 +1,22 @@
+-- Haskell Playground 1.0
+Left "hello Haskell" :: Either [Char] b
+Left "str"
+:k Either
+
+(connect "127.0.0.1")
+(connect "127.0.0.1") >>= recv
+
+fmap (\x -> x + 1) (Right 1)
+fmap (\x -> x + 1) (Left "Error")
+
+(++) <$> (Right "str") <*> Right "last"
+
+-- pure == Right (for Either)
+pure "Right" :: Either a String
+
+ei_add = \x-> Right(x+1)
+Right 5 `applyEither` ei_add
+Left "error str" `applyEither` ei_add
+
+return "Right" :: Either a String
+Right 5 >>= ei_add

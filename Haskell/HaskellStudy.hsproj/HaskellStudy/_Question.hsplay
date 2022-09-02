@@ -1,0 +1,17 @@
+-- Haskell Playground 1.0
+myLast [1,2,3,4]
+last [1,2,3,4]
+elementAt "haskell" 5
+elementAt [1..] 5
+myLength "haskell"
+myLength []
+myReverse "haskell"
+isPalindrome [1,2,3,2,1]
+isPalindrome "abcba"
+reverseWords "sdfa  dsaf"
+
+splitOn " " "abc iop  zxcv"
+
+comp [-1,0] 
+
+toWeirdCase "\245H O\225t H"

@@ -1,0 +1,27 @@
+cabal-version: 1.22
+name: HaskellStudy
+version: 1.0
+license: AllRightsReserved
+stability: experimental
+x-ghc-framework-version: 8.6.4-13.14-3
+x-last-ide-version: HfM1.8.2
+build-type: Simple
+
+executable HaskellStudy
+    main-is: Main.hs
+    other-modules:
+        Lib
+        Type.DataStruct
+        Type.TypeClass
+        Type.TypeClassSecond
+        Type.Type
+        Shape
+        H
+        Question
+        FunThink
+    default-language: Haskell2010
+    build-depends:
+        split -any,
+        containers -any,
+        directory -any,
+        base -any

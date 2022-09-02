@@ -1,0 +1,9 @@
+-- Haskell Playground 1.0
+readJSON "null"
+readJSON "{ \"a\":1}"
+readJSON "{\"a\\n\":1,\"b\":1}"
+
+readJSON "[1,2,3,4]"
+
+
+readJSON "[1]"

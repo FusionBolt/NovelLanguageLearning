@@ -1,0 +1,35 @@
+-- Haskell Playground 1.0
+-- curry
+uncurryAdd(1,2)
+c1 = curryAdd 1
+
+-- ADT
+:t Red
+List 1
+
+-- list
+length [2,2,2]
+take 2 [4,5,6,7]
+take 4 iteration
+
+-- op
+(+1) 3
+(1+) 3
+
+-- tuple
+tuple3 = (1, "str", 2.0)
+tuple2 = (1, "foo")
+fst tuple2
+snd tuple2
+-- fst snd are only used by tuple2
+
+-- Function Composition
+flip (++) "hello" "world"
+
+curry_flip = flip (++) "world"
+curry_flip "hello"
+
+import Data.List
+import Data.Function
+sortSize = sortBy (compare `on` length)
+sortSize [[1,2], [1,2,3], [1]] 

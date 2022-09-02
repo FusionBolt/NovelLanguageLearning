@@ -1,0 +1,19 @@
+-- Haskell Playground 1.0
+:t compare
+
+-- lazy
+lengthCompare "min" undefined
+
+
+
+
+
+return (6,2) >>= move >>= move
+
+move (3,3) >>= move
+
+inScpoe (-1, 2)
+
+foo x = x > 0 && x < maxX
+-- foo -1
+foo (-1)

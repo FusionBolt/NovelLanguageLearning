@@ -1,0 +1,22 @@
+cabal-version: 2.4
+name: WhatIWishIKnewWhenLearningHaskell
+version: 1.0
+stability: experimental
+x-ghc-framework-version: 8.6.4-13.14-3
+x-last-ide-version: HfM1.8.2
+
+executable WhatIWishIKnewWhenLearningHaskell
+    main-is: Main.hs
+    other-modules:
+        ByEither
+        Monoids
+        MoreMonad
+        Basics
+        TypeClass
+        DataStruct
+        Applicative
+        Monad
+    default-language: Haskell2010
+    build-depends:
+        base -any,
+        mtl -any
